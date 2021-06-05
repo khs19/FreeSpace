@@ -1,12 +1,12 @@
 package com.example.freespace
+
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.freespace.MyPlaceAdapter
 import com.example.freespace.databinding.ActivitySaturationBinding
-
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -36,8 +36,9 @@ class SaturationActivity : AppCompatActivity() {
         adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener {
             override fun OnItemClick(view: View, position: Int) {
                 val intent = Intent(this@SaturationActivity, PlaceActivity::class.java)
-                intent.putExtra("string", adapter.getItem(position).pName.toString())
-                intent.putExtra("string2", adapter.getItem(position).pInfo.toString())
+                intent.putExtra("placeName", adapter.getItem(position).pName.toString())
+                intent.putExtra("placeInfo", adapter.getItem(position).pInfo.toString())
+                intent.putExtra("bookmark", adapter.getItem(position).bookmark.toString().toBoolean())
                 intent.putExtra("int", (adapter.getItem(position).pNum.toString().toDouble()/adapter.getItem(position).pMaxNum.toString().toDouble()*100).toInt())
                 startActivity(intent)
             }
@@ -47,6 +48,19 @@ class SaturationActivity : AppCompatActivity() {
             saturationRecyclerView.adapter = adapter
             saturationPlace.text = placeName
             saturationPerscent.text = "$placeSat%"
+            if(placeSat<30){
+                saturationColor.setImageResource(R.drawable.outer_circle_blue)
+                saturationPerscent.setTextColor(Color.parseColor("#2F80ED"))
+                saturationText.text = "여유"
+            }else if(placeSat>=30 && placeSat<70){
+                saturationColor.setImageResource(R.drawable.outer_circle_yellow)
+                saturationPerscent.setTextColor(Color.parseColor("#F2994A"))
+                saturationText.text = "보통"
+            }else{
+                saturationColor.setImageResource(R.drawable.outer_circle_red)
+                saturationPerscent.setTextColor(Color.parseColor("#EB5757"))
+                saturationText.text = "꽉참"
+            }
         }
     }
 

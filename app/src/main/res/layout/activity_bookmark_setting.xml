@@ -19,14 +19,9 @@
         android:paddingHorizontal="20dp">
 
         <TextView
-            android:id="@+id/moveHome"
-            android:layout_width="2dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="홈"
-            android:textAlignment="viewStart"
-            android:textColor="#2F80ED"
-            android:textSize="24sp" />
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +37,7 @@
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="관리"
+            android:text="취소"
             android:textAlignment="viewEnd"
             android:textColor="#2F80ED"
             android:textSize="24sp" />
@@ -57,5 +52,14 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="354dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/blue_btn"
+        android:text="적용"
+        android:textColor="#ffffff" />
 
 </LinearLayout>

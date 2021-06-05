@@ -30,22 +30,23 @@ class MyPlaceAdapter (options: FirebaseRecyclerOptions<Place>)
         return ViewHolder(view)
     }
 
-    fun satInfo(mNum : Double, num : Double) : String{
-        var n = num/mNum
-        var saturationinfo = "noinfo"
-        if(n<0.3)
-            saturationinfo = "여유"
-        else if(n>=0.3 && n<0.7)
-            saturationinfo = "보통"
-        else
-            saturationinfo = "꽉참"
-        return saturationinfo
-    }
+
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Place) {
+        val percent = model.pNum.toString().toDouble()/model.pMaxNum.toString().toDouble()
         holder.binding.apply {
+            if(percent<0.3) {
+                searchResultColor.setImageResource(R.drawable.fill_circle_blue)
+                searchResultSaturation.text = "여유"
+            } else if(percent>=0.3&&percent<0.7) {
+                searchResultColor.setImageResource(R.drawable.fill_circle_yellow)
+                searchResultSaturation.text = "보통"
+            } else {
+                searchResultColor.setImageResource(R.drawable.fill_circle_red)
+                searchResultSaturation.text = "꽉참"
+            }
             searchResultPlace.text = model.pName.toString()
-            searchResultSaturation.text = satInfo(model.pMaxNum.toString().toDouble(), model.pNum.toString().toDouble())
         }
     }
 }
