@@ -10,32 +10,36 @@ import com.example.freespace.databinding.SearchResultRowBinding
 import com.example.freespace.databinding.SearchRowBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import java.util.*
+import kotlin.collections.ArrayList
 
-class SearchAdapter (options: FirebaseRecyclerOptions<Place>)
-    : FirebaseRecyclerAdapter<Place, SearchAdapter.ViewHolder>(options){
+class SearchAdapter (val items:ArrayList<String>)
+    : RecyclerView.Adapter<SearchAdapter.ViewHolder>(){
 
     interface OnItemClickListener{
-        fun OnItemClick(view: View, position: Int)
+        fun OnItemClick(holder:SearchAdapter.ViewHolder, view: View, data:String, position: Int)
     }
     var itemClickListener:OnItemClickListener?=null
-    inner class ViewHolder(var binding: SearchRowBinding): RecyclerView.ViewHolder(binding.root){
-        val pname : String = binding.searchPlace.toString()
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+        val pname : TextView = itemView.findViewById(R.id.searchPlace)
         init{
-            binding.root.setOnClickListener{
-                itemClickListener!!.OnItemClick(it, adapterPosition)
+            pname.setOnClickListener {
+                itemClickListener?.OnItemClick(this,it,items[adapterPosition],adapterPosition)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = SearchRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.search_row,parent,false)
         return ViewHolder(view)
     }
 
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Place) {
-        holder.binding.apply {
-            searchPlace.text = model.pName.toString()
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.pname.text = items[position]
+    }
+    override fun getItemCount(): Int { //어댑터네 오버라이드
+        return items.size
     }
 }

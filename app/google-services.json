@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "763871829201",
+    "firebase_url": "https://saturation-54703-default-rtdb.firebaseio.com",
     "project_id": "saturation-54703",
     "storage_bucket": "saturation-54703.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763871829201:android:6f0e58f74f6d38e4e3b9f0",
+        "android_client_info": {
+          "package_name": "com.example.freespace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763871829201-959sa5ho8pe97ovdi0nts7p5t6uege4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_RgA6Pu2f8dpkPNkHSLk9qnS2vtMy6pw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763871829201-959sa5ho8pe97ovdi0nts7p5t6uege4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:763871829201:android:1be7903592c7d6b8e3b9f0",

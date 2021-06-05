@@ -9,11 +9,17 @@ import com.example.freespace.databinding.SearchRowBinding
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.io.PrintStream
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding
     lateinit var layoutManager: LinearLayoutManager
     lateinit var adapter: SearchAdapter
+    var recents = mutableListOf<String>()
+    var array = ArrayList<String>()
     lateinit var rdb: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,38 +27,52 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
         init()
     }
-
-
     private fun init() {
-        layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rdb = FirebaseDatabase.getInstance().getReference("PlaceDB/Place")
-        val query = rdb.orderByKey()
-        val option =  FirebaseRecyclerOptions.Builder<Place>().setQuery(query, Place::class.java).build()
-        adapter = SearchAdapter(option)
-        adapter.itemClickListener = object : SearchAdapter.OnItemClickListener {
-            override fun OnItemClick(view: View, position: Int) {
-                val pname = adapter.ViewHolder(SearchRowBinding.inflate(layoutInflater)).binding.searchPlace.toString()
-                binding.apply {
-
-                }
-            }
-        }
+        initData()
         binding.apply {
-            searchRecyclerView.layoutManager = layoutManager
-            searchRecyclerView.adapter = adapter
+            searchRecyclerView.layoutManager = LinearLayoutManager(parent,LinearLayoutManager.VERTICAL,false)
+//            var arrRecent = ArrayList<String>()
+//            recent(arrRecent)
+            adapter = SearchAdapter(array)
             searchBtn.setOnClickListener {
+                writefile(searchEdit.text.toString())
                 val intent = Intent(it.context, SearchResultActivity::class.java)
                 startActivity(intent)
             }
+            adapter.itemClickListener = object : SearchAdapter.OnItemClickListener{
+                override fun OnItemClick(holder: SearchAdapter.ViewHolder, view: View, data: String, position: Int) {
+                    searchEdit.setText(array[position])
+                }
+            }
+            searchRecyclerView.adapter = adapter
         }
     }
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
+    fun readFileScan(scan: Scanner){
+        while(scan.hasNextLine()){
+            val name = scan.nextLine()
+            array.add(name)
+        }
+        scan.close()
     }
+    private fun initData() {
 
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
+        try { // addvoc를 하지 않아 out.txt가 생성되지 않았을경우 try catch
+            val scan2 = Scanner(this.openFileInput("recent.txt"))
+            readFileScan(scan2) // addvocactivity 에서 삽입한 텍스트를 삽입
+
+        }catch(e: Exception){ }
+
+    }
+    fun recent(items: ArrayList<String>){
+        items.clear()
+        var i = 0
+        while(i<10&&i<array.size){
+            items.add(array[i])
+        }
+    }
+    fun writefile(name: String){
+        val output= PrintStream(this.openFileOutput("recent.txt", MODE_APPEND))
+        output.println(name)
+        output.close()
     }
 }
