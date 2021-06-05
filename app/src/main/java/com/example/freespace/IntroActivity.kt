@@ -22,7 +22,7 @@ class IntroActivity : AppCompatActivity() {
                 val intent = Intent(this@IntroActivity, SearchActivity::class.java)
                 startActivity(intent)
             }
-            bookmark.setOnClickListener{
+            bookMark.setOnClickListener{
                 val intent = Intent(this@IntroActivity, BookmarkActivity::class.java)
                 startActivity(intent)
             }

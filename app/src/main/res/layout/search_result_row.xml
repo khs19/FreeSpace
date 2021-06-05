@@ -22,7 +22,7 @@
             app:srcCompat="@drawable/fill_circle_blue" />
 
         <TextView
-            android:id="@+id/bookMarkPlace"
+            android:id="@+id/searchResultPlace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="8"
@@ -31,7 +31,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/serchResultSaturation"
+            android:id="@+id/searchResultSaturation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

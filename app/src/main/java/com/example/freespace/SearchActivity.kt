@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freespace.databinding.ActivitySearchBinding
+import com.example.freespace.databinding.SearchRowBinding
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -12,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding
     lateinit var layoutManager: LinearLayoutManager
-    lateinit var adapter: MyPlaceAdapter
+    lateinit var adapter: SearchAdapter
     lateinit var rdb: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,37 +28,24 @@ class SearchActivity : AppCompatActivity() {
         rdb = FirebaseDatabase.getInstance().getReference("PlaceDB/Place")
         val query = rdb.orderByKey()
         val option =  FirebaseRecyclerOptions.Builder<Place>().setQuery(query, Place::class.java).build()
-        adapter = MyPlaceAdapter(option)
-        adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener {
+        adapter = SearchAdapter(option)
+        adapter.itemClickListener = object : SearchAdapter.OnItemClickListener {
             override fun OnItemClick(view: View, position: Int) {
-                val intent = Intent(this@SearchActivity, SaturationActivity::class.java)
-                intent.putExtra("string", adapter.getItem(position).pName.toString())
-                intent.putExtra("int", (adapter.getItem(position).pNum.toString().toDouble()/adapter.getItem(position).pMaxNum.toString().toDouble()*100).toInt())
-                startActivity(intent)
+                val pname = adapter.ViewHolder(SearchRowBinding.inflate(layoutInflater)).binding.searchPlace.toString()
+                binding.apply {
+
+                }
             }
         }
         binding.apply {
-            recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = adapter
+            searchRecyclerView.layoutManager = layoutManager
+            searchRecyclerView.adapter = adapter
             searchBtn.setOnClickListener {
-//                val query = rdb.orderByChild("pname").equalTo(searchEdit.text.toString())//query문 찾아봐야함
-//                val option = FirebaseRecyclerOptions.Builder<Place>().setQuery(query, Place::class.java).build()
-//                adapter = MyPlaceAdapter(option)
-//                adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener {
-//                    override fun OnItemClick(view: View, position: Int) {
-//                        val intent = Intent(this@SearchActivity, SaturationActivity::class.java)
-//                        intent.putExtra("string", adapter.getItem(position).pName.toString())
-//                        intent.putExtra("int", (adapter.getItem(position).pNum.toString().toDouble()/adapter.getItem(position).pMaxNum.toString().toDouble()*100).toInt())
-//                        startActivity(intent)
-//                    }
-//                }
-//                recyclerView.adapter = adapter
-//                adapter.startListening()
-
+                val intent = Intent(it.context, SearchResultActivity::class.java)
+                startActivity(intent)
             }
         }
     }
-
     override fun onStart() {
         super.onStart()
         adapter.startListening()

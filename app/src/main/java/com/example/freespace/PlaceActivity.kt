@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freespace.MyPlaceAdapter
 import com.example.freespace.databinding.ActivityPlaceBinding
-import com.example.mysaturation.databinding.ActivityPlaceBinding
 import com.google.firebase.database.DatabaseReference
 
 class PlaceActivity : AppCompatActivity() {
@@ -37,8 +36,8 @@ class PlaceActivity : AppCompatActivity() {
         val placeInfo = intent.getStringExtra("string2")
 
         binding.apply {
-            placename.text = placeName
-            placesaturation.text = satInfo(placeSat)
+            placePname.text = placeName
+            placeSaturation.text = satInfo(placeSat)
         }
     }
 }

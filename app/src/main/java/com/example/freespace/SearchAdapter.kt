@@ -1,23 +1,25 @@
 package com.example.freespace
+
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.freespace.databinding.SearchResultRowBinding
-
+import com.example.freespace.databinding.SearchRowBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class MyPlaceAdapter (options: FirebaseRecyclerOptions<Place>)
-    : FirebaseRecyclerAdapter<Place, MyPlaceAdapter.ViewHolder>(options){
+class SearchAdapter (options: FirebaseRecyclerOptions<Place>)
+    : FirebaseRecyclerAdapter<Place, SearchAdapter.ViewHolder>(options){
 
     interface OnItemClickListener{
         fun OnItemClick(view: View, position: Int)
     }
-
     var itemClickListener:OnItemClickListener?=null
-
-    inner class ViewHolder(var binding: SearchResultRowBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(var binding: SearchRowBinding): RecyclerView.ViewHolder(binding.root){
+        val pname : String = binding.searchPlace.toString()
         init{
             binding.root.setOnClickListener{
                 itemClickListener!!.OnItemClick(it, adapterPosition)
@@ -26,26 +28,14 @@ class MyPlaceAdapter (options: FirebaseRecyclerOptions<Place>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = SearchResultRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = SearchRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
-    fun satInfo(mNum : Double, num : Double) : String{
-        var n = num/mNum
-        var saturationinfo = "noinfo"
-        if(n<0.3)
-            saturationinfo = "여유"
-        else if(n>=0.3 && n<0.7)
-            saturationinfo = "보통"
-        else
-            saturationinfo = "꽉참"
-        return saturationinfo
-    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Place) {
         holder.binding.apply {
-            searchResultPlace.text = model.pName.toString()
-            searchResultSaturation.text = satInfo(model.pMaxNum.toString().toDouble(), model.pNum.toString().toDouble())
+            searchPlace.text = model.pName.toString()
         }
     }
 }

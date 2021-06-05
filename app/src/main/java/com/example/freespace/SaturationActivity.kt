@@ -43,10 +43,10 @@ class SaturationActivity : AppCompatActivity() {
             }
         }
         binding.apply {
-            recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = adapter
-            placename.text = placeName
-            placesaturation.text = "$placeSat%"
+            saturationRecyclerView.layoutManager = layoutManager
+            saturationRecyclerView.adapter = adapter
+            saturationPlace.text = placeName
+            saturationPerscent.text = "$placeSat%"
         }
     }
 
