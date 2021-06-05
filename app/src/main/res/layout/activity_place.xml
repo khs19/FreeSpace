@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/img2" />
 
     <TextView
-        android:id="@+id/searchName"
+        android:id="@+id/saturationPlace"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="5dp"

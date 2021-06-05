@@ -26,7 +26,7 @@ class SearchActivity : AppCompatActivity() {
         layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rdb = FirebaseDatabase.getInstance().getReference("PlaceDB/Place")
         val query = rdb.orderByKey()
-        val option = FirebaseRecyclerOptions.Builder<Place>().setQuery(query, Place::class.java).build()
+        val option =  FirebaseRecyclerOptions.Builder<Place>().setQuery(query, Place::class.java).build()
         adapter = MyPlaceAdapter(option)
         adapter.itemClickListener = object : MyPlaceAdapter.OnItemClickListener {
             override fun OnItemClick(view: View, position: Int) {

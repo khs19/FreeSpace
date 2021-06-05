@@ -40,7 +40,7 @@
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/bookmark"
+        android:id="@+id/bookMark"
         android:background="@drawable/intro_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
