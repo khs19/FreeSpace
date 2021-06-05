@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:background="#2F80ED">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="빈자리를 보여줘!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#ffffff"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#eeeeee"
+        app:srcCompat="@drawable/event_label2" />
+
+    <TextView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:background="@drawable/intro_btn"
+        android:padding="10dp"
+        android:text="검색"
+        android:textAlignment="center"
+        android:textColor="#2F80ED"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/bookmark"
+        android:background="@drawable/intro_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:padding="10dp"
+        android:text="즐겨찾기 이동"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="#2F80ED"/>
+
+    <TextView
+        android:id="@+id/alarm"
+        android:background="@drawable/intro_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:padding="10dp"
+        android:text="포화도 알림"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="#2F80ED"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/img2"
+        android:textAlignment="center"/>
+
+
+</LinearLayout>
