@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.freespace.MainActivity
 import com.example.freespace.databinding.ActivityIntroBinding
-import com.example.mysaturation.databinding.ActivityIntroBinding
+
 
 class IntroActivity : AppCompatActivity() {
     lateinit var binding: ActivityIntroBinding

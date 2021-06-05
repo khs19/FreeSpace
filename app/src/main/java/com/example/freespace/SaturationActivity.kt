@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freespace.MyPlaceAdapter
 import com.example.freespace.databinding.ActivitySaturationBinding
-import com.example.mysaturation.databinding.ActivitySaturationBinding
+
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

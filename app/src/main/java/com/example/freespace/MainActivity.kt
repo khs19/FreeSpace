@@ -3,7 +3,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.freespace.R
-import com.example.mysaturation.Place
+
 import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
