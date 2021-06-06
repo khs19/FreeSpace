@@ -29,6 +29,7 @@ class SearchActivity : AppCompatActivity() {
             searchRecyclerView.layoutManager = LinearLayoutManager(parent,LinearLayoutManager.VERTICAL,false)
 //            var arrRecent = ArrayList<String>()
 //            recent(arrRecent)
+            Collections.reverse(array)
             adapter = SearchAdapter(array)
             searchBtn.setOnClickListener {
                 writefile(searchEdit.text.toString())
