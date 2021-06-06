@@ -7,8 +7,11 @@ import android.content.Context
 import android.content.Intent
 import java.util.*
 
-class SampleBootReceiver : BroadcastReceiver {
-    constructor()
+class SampleBootReceiver(hour:Int,min:Int) : BroadcastReceiver() {
+    constructor() : this(0,0)
+    val hour = hour
+    val min = min
+
     private var alarmMgr : AlarmManager? = null
     private lateinit var  alarmIntent: PendingIntent
 
@@ -23,8 +26,8 @@ class SampleBootReceiver : BroadcastReceiver {
 
             val calendar: Calendar = Calendar.getInstance().apply {
                 timeInMillis = System.currentTimeMillis()
-                set(Calendar.HOUR_OF_DAY,23)
-                set(Calendar.MINUTE, 52)
+                set(Calendar.HOUR_OF_DAY,hour)
+                set(Calendar.MINUTE, min)
             }
 
             alarmMgr?.setInexactRepeating(

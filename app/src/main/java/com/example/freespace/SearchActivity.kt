@@ -47,7 +47,9 @@ class SearchActivity : AppCompatActivity() {
     fun readFileScan(scan: Scanner){
         while(scan.hasNextLine()){
             val name = scan.nextLine()
-            array.add(name)
+            if(!array.contains(name)) {
+                array.add(name)
+            }
         }
         scan.close()
     }
@@ -56,9 +58,7 @@ class SearchActivity : AppCompatActivity() {
         try { // addvoc를 하지 않아 out.txt가 생성되지 않았을경우 try catch
             val scan2 = Scanner(this.openFileInput("recent.txt"))
             readFileScan(scan2) // addvocactivity 에서 삽입한 텍스트를 삽입
-
         }catch(e: Exception){ }
-
     }
     fun recent(items: ArrayList<String>){
         items.clear()

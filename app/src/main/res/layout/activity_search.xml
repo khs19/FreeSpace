@@ -36,7 +36,7 @@
             android:layout_width="2dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="필터"
+            android:text=" "
             android:textAlignment="viewEnd"
             android:textColor="#2F80ED"
             android:textSize="24sp" />

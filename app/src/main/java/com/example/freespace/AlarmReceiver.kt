@@ -44,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver {
         alarmSetting(vocab)
         val builder = NotificationCompat.Builder(context,CHANNEL_ID)
                 .setSmallIcon(R.drawable.img2)
-                .setContentTitle("오늘의 단어")
+                .setContentTitle("포화도 알림")
                 .setContentText("안녕")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
