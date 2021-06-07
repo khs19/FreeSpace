@@ -31,6 +31,7 @@ class AlarmActivity : AppCompatActivity() {
     lateinit var binding: ActivityAlarmBinding
     private var alarmMgr: AlarmManager? = null
     lateinit var adapter: MyPlaceAdapter
+    lateinit var placetemp: Place
     lateinit var layoutManager: LinearLayoutManager
     lateinit var rdb: DatabaseReference
     private lateinit var alarmIntent: PendingIntent
@@ -54,6 +55,7 @@ class AlarmActivity : AppCompatActivity() {
         adapter = MyPlaceAdapter(option)
         adapter.itemClickListener = object:MyPlaceAdapter.OnItemClickListener{
             override fun OnItemClick(view: View, position: Int) {
+                placetemp = adapter.getItem(position)
                 pString = adapter.getItem(position).pName.toString()
                 pSaturation=(100*adapter.getItem(position).pNum/adapter.getItem(position).pMaxNum).toString()
                 Toast.makeText(this@AlarmActivity,pString + "이 선택되었습니다 알림날짜와 시각을 선택해주세요",Toast.LENGTH_SHORT).show()
@@ -76,7 +78,7 @@ class AlarmActivity : AppCompatActivity() {
                             val timerTask = object : TimerTask() {
                                 @RequiresApi(Build.VERSION_CODES.O)
                                 override fun run() {
-                                    makeNotification(pString, pSaturation)
+                                    makeNotification(placetemp)
                                     alarmMgr = getSystemService(Context.ALARM_SERVICE) as AlarmManager
                                     alarmIntent = Intent(this@AlarmActivity, AlarmReceiver::class.java).let { intent ->
                                         PendingIntent.getBroadcast(this@AlarmActivity, 0, intent, 0)
@@ -125,7 +127,7 @@ class AlarmActivity : AppCompatActivity() {
             }
         }
     }
-    fun makeNotification(pName:String ,Saturation:String){ //알람주자!
+    fun makeNotification(place: Place){ //알람주자!
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val id = "MyChannel"
             val name = "TimeCheckChannel"
@@ -135,14 +137,14 @@ class AlarmActivity : AppCompatActivity() {
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.BLUE
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
-
+            var Saturation = (100*placetemp.pNum/placetemp.pMaxNum)
             val builder = NotificationCompat.Builder(this, id)
                     .setSmallIcon(R.drawable.ic_baseline_alarm_24)
                     .setContentTitle("포화도 알림")
-                    .setContentText(pName+"의 현재 포화도는 : "+Saturation +"% 입니다")
+                    .setContentText(placetemp.pName+"의 현재 포화도는 : "+Saturation +"% 입니다")
                     .setAutoCancel(true)
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("time", pName+"의 현재 포화도는 : "+Saturation+"% 입니다")
+            intent.putExtra("time", placetemp.pName+"의 현재 포화도는 : "+Saturation+"% 입니다")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             val pendingIntent =
                     PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT)
